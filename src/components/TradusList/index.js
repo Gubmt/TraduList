@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Text} from 'react-native'
 import {Alert} from 'react-native'
 import getRealm from '../../services/realm'
 import {
@@ -34,29 +35,31 @@ import Icon from 'react-native-vector-icons/dist/Ionicons'
 const validationSchema = yup.object().shape({
   word: yup
       .string()
-      .required(''),
+      .required(),
 
   tradu: yup
       .string()
-      .required('')
+      .required()
 })
 
 class TradusList extends Component{
 
   state = {
-    item: null,
+    id: null,
+    word: null,
+    tradu: null,
     editTranslation: {},
   }
 
-  edit = item => {
-    this.setState({item})
+  edit = (id,word,tradu) => {
+    this.setState({id,word,tradu})
     this.props.handleModalEdit(true)
   }
 
   editItem = async(data) =>{
     this.setState({
       editTranslation:{
-        id: this.state.item,
+        id: this.state.id,
         word: data.word,
         tradu: data.tradu
       },
@@ -66,7 +69,9 @@ class TradusList extends Component{
       realm.create('ListTradu',this.state.editTranslation,true)
     })
     this.setState({
-      item:null,
+      id: null,
+      word: null,
+      tradu: null,
     })
     this.props.requestTraduList()
     this.props.handleModalEdit(false)
@@ -101,7 +106,7 @@ class TradusList extends Component{
               <Tradu>{item.tradu}</Tradu>
             </Inf>
             <Delete>
-              <EditButton onPress={() => this.edit(item.id)}>
+              <EditButton onPress={() => this.edit(item.id, item.word, item.tradu)}>
                 <Icon name='md-create' size={32} color='#0066CC'/>
               </EditButton>
               <RemoveButton title={'Deletar'} onPress={() => this.remove(item.id)}>
@@ -120,7 +125,8 @@ class TradusList extends Component{
         presentationStyle='overFullScreen'
       >
         <Formik
-          initialValues={{word:'', tradu:''}}
+          initialValues={{word:this.state.word, tradu:this.state.tradu}}
+          isInitialValid={true}
           validationSchema={validationSchema}
           onSubmit={values=>this.editItem(values)}
           render={({values, handleChange, handleSubmit, errors, isValid, setFieldTouched})=>(
@@ -128,17 +134,18 @@ class TradusList extends Component{
               <ContainerModal>
                   <InputWord 
                     name={'word'}
+                    autoFocus={true}
+                    onChangeText={handleChange('word')}
                     value={values.word}
                     placeholder={'Digite a palavra'} 
                     error={errors.word}
-                    onBlur={()=>setFieldTouched('word')}
-                    onChangeText={handleChange('word')}
+                    onFocus={()=>setFieldTouched('word')}
                   />
                   <InputTradu 
                     name={'tradu'}
                     value={values.tradu}
                     placeholder={'Digite a tradução'} 
-                    onBlur={()=>setFieldTouched('tradu')}
+                    onFocus={()=>setFieldTouched('tradu')}
                     error={errors.tradu}
                     onChangeText={handleChange('tradu')}
                   />

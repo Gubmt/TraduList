@@ -29,6 +29,7 @@ export const Tradu = styled.Text`
 `;
 
 export const Inf = styled.View`
+  flex: 1;
   margin: 5px;
 `;
 
