@@ -1,2 +1,2 @@
 # TraduList
-Aplicativo desenvolvido com React Native.
+Aplicativo para criação de listas de traduções, desenvolvido com React Native.
