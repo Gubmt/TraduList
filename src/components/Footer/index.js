@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/dist/Ionicons'
 
 const Footer = ({dispatch}) => (
     <Foot>
-        <FilterButton onPress={()=>{}}><Icon name='ios-search' size={32}/></FilterButton>
+        <FilterButton onPress={()=>{}}><Icon name='ios-funnel' size={32}/></FilterButton>
         <InsertTradu onPress={()=>dispatch(Actions.handleModal(true))}><Icon name="ios-add-circle" size={40} color='#0066CC'/></InsertTradu>
         <DeleteButton onPress={()=>dispatch(Actions.handleModalAll(true))}><Icon name="ios-trash" size={32}/></DeleteButton>
     </Foot>

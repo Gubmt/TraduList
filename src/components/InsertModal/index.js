@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Text} from 'react-native';
 import { 
     ModalTradu, 
     Wrapper, 
@@ -33,9 +34,10 @@ class InsertModal extends Component {
     state = { newTranslation: {} }
 
     addNewTranslation = data => {
+        const now = new Date()
         this.setState({
             newTranslation:{
-                id: Math.random() * (Math.floor(1000)-Math.ceil(0))+Math.ceil(0),
+                id: now.valueOf(),
                 word: data.word,
                 tradu: data.tradu
             },
@@ -82,7 +84,6 @@ class InsertModal extends Component {
                                     onBlur={()=>setFieldTouched('word')}
                                     onChangeText={handleChange('word')}
                                 />
-                               
                                 <InputTradu 
                                     name={'tradu'}
                                     value={values.tradu}
@@ -90,7 +91,6 @@ class InsertModal extends Component {
                                     onBlur={()=>setFieldTouched('tradu')}
                                     onChangeText={handleChange('tradu')}
                                 />
-                                
                                 <InsertButton disabled={!isValid} onPress={handleSubmit}><InsertButtonText>Inserir</InsertButtonText></InsertButton>
                             </ContainerModal>
                         </Wrapper>
