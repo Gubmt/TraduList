@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   flex: 1;
   background: #DDD;
 `;
@@ -25,7 +25,7 @@ export const Tradu = styled.Text`
   font-size: 16px;
   margin-top: 5px;
   line-height: 20px;
-  color #666;
+  color: #666;
 `;
 
 export const Inf = styled.View`

@@ -8,6 +8,10 @@ import {bindActionCreators} from 'redux'
 import {Keyboard, StatusBar} from 'react-native';
 
 class Header extends Component {
+
+  state = {
+    isSearching: false
+  }
   
   handleSearch = async (search) => {
     if(search !== ''){
@@ -22,47 +26,37 @@ class Header extends Component {
 
   handleArrowBack = () => {
     this.props.requestTraduList() 
-    this.props.handleModalSearch(false)
+    this.setState({isSearching:false})
   }
   
   render() {
     return (
-        <Container>
-            <Title>Traduções</Title>
-            <SearchButton onPress={()=> this.props.handleModalSearch(true)}>
-              <Icon name='ios-search' size={32} color='#000'/>
-            </SearchButton>
-            <ModalSearch
-                onRequestClose={()=>this.props.handleModalSearch(false)}
-                visible={this.props.modalSearch}
-                transparent={true}
-                animationType="fade"
-                presentationStyle='overFullScreen'
-            >
-              <Box>
-                <Search>
-                  <BackButton onPress={()=>this.handleArrowBack()}>
-                    <Icon name='ios-arrow-back' size={32} color='#000'/>
-                  </BackButton>
-                  <InputSearch 
-                    autoFocus = {true}
-                    disableFullscreenUI = {true}
-                    placeholder = 'Procurar tradução'
-                    onChangeText = {text => this.handleSearch(text)}
-                  /> 
-                </Search> 
-              </Box>
-            </ModalSearch>
-        </Container>
+      <>
+        {this.state.isSearching ? 
+          <Search>
+            <BackButton onPress={()=>this.handleArrowBack()}>
+              <Icon name='ios-arrow-back' size={32} color='#000'/>
+            </BackButton>
+            <InputSearch 
+              autoFocus = {true}
+              disableFullscreenUI = {true}
+              placeholder = 'Procurar tradução'
+              onChangeText = {text => this.handleSearch(text)}
+            /> 
+          </Search> : 
+          <Container>
+              <Title>Traduções</Title>
+              <SearchButton onPress={()=> this.setState({isSearching:true})}>
+                <Icon name='ios-search' size={32} color='#000'/>
+              </SearchButton>
+          </Container>
+        } 
+      </>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  modalSearch: state.modais.modalSearch
-});
-
 const mapDispatchToProps = dispatch =>
   bindActionCreators(Actions, dispatch);
 
-export default connect(mapStateToProps,mapDispatchToProps)(Header);
+export default connect(null,mapDispatchToProps)(Header);

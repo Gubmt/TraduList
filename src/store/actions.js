@@ -39,9 +39,3 @@ export function handleModalAll(status){
     }
 }
 
-export function handleModalSearch(status){
-    return {
-        type: 'HANDLE_MODAL_SEARCH',
-        status,
-    }
-}

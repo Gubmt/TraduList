@@ -28,11 +28,6 @@ export default function modais(state = INITIAL_STATE, action){
                 ...state,
                 modalRemAll: action.status
             }
-        case 'HANDLE_MODAL_SEARCH': 
-            return{
-                ...state,
-                modalSearch: action.status
-            }
         default: 
             return state
     }

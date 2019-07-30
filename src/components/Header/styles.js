@@ -18,13 +18,6 @@ export const Title = styled.Text`
   font-weight: bold;
 `;
 
-export const ModalSearch = styled.Modal``;
-
-export const Box = styled.View`
-  flex: 1; 
-  
-`;
-
 export const Search = styled.View`
   flex-direction: row;
   justify-content: center;
